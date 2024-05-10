@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# path to update_todo script 
+UPDATE_TODO_SCRIPT="../update_todo_rs.py"
+
+python3 "$UPDATE_TODO_SCRIPT"
+
+# checks if TODO.md was updated/if it was added to staged changes for commit
+if git diff --name-only --cached | grep -q "TODO.md"; then
+    echo "TODO.md has been updated."
+else
+    echo "Updating TODO.md..."
+    git add TODO.md
+fi
+
+#if exits with non-zero exit code, abort commit
+exit 0
